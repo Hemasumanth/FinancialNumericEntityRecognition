@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlops-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mlops
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: mlops
+    spec:
+      containers:
+      - name: mlops
+        image: us-east1-docker.pkg.dev/finerteam8/kuberepo/kub@sha256:e767c60be9f77bd834700ff4a2c1d34b4d06c3f845ce1dce8726d9c4302869db

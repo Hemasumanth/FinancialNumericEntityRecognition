@@ -1,0 +1,65 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+</head>
+<body>
+    <h1>Simple Form</h1>
+    
+    <form method="POST" action="{{ url_for('submit_form') }}">
+        <label for="user_input">Enter Text:</label>
+        <input type="text" id="user_input" name="user_input" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if submitted_text %}
+        <p>Text submitted: {{ submitted_text }}</p>
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Prediction</title>
+    
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+    <div class="jumbotron">
+        <h1 class="display-4">Financial Numerical Entity recognition (FiNER-139)</h1>
+        <p>We aim to automate the way numeric entities in financial documents are identified and processed. 
+            This form takes a statement from a financial document as input and tags all number using the XBRL format.</p>
+        <form method="POST" action="{{ url_for('submit_form') }}" class="mt-4">
+            <div class="form-group">
+                <label for="user_input">Enter Text:</label>
+                <!-- Use Bootstrap classes to make the input larger -->
+                <input type="text" id="user_input" name="user_input" class="form-control" required>
+            </div>
+            
+            <!-- Use Bootstrap classes for styling the button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if submitted_text %}
+            <p class="mt-4">Text submitted: {{ submitted_text }}</p>
+        {% endif %}
+
+        {% if output %}
+            <p class="mt-4">NER Tags output: {{ output }}</p>
+        {% endif %}
+        
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js for Bootstrap functionality -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
