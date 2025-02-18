@@ -80,7 +80,32 @@ convert_test_list_dag = PythonOperator(
     op_kwargs = {'PROJECT_FOLDER': PROJECT_FOLDER, "FILE": "test",'logger': setup_logger(root_dir, 'convert_test_list')},
     dag = dag
 )
+generate_tokeniser_dag = PythonOperator(
+    task_id = 'Generate_Tokeniser',
+    python_callable = genereate_tokenizer,
+    op_kwargs = {'PROJECT_FOLDER': PROJECT_FOLDER, 'logger': setup_logger(root_dir, 'genereate_tokenizer')},
+    dag = dag
+)
+generate_token_data_dag = PythonOperator(
+    task_id = 'TokenData',
+    python_callable = tokenise_json_data,
+    op_kwargs = {'PROJECT_FOLDER': PROJECT_FOLDER, 'logger': setup_logger(root_dir, 'generate_token_data')},
+    dag = dag
+)
 
+generate_data_stats = PythonOperator(
+    task_id = 'DataStats',
+    python_callable = data_stats,
+    op_kwargs = {'PROJECT_FOLDER': PROJECT_FOLDER, 'LOGGER': setup_logger(root_dir, 'data_stats')},
+    dag = dag
+)
+
+gcloud_upload = PythonOperator(
+    task_id = 'gcloud_upload',
+    python_callable = upload_files,
+    op_kwargs = {'PROJECT_FOLDER': PROJECT_FOLDER, 'BUCKET_NAME': 'finer_data_bk', 'logger': setup_logger(root_dir, 'generate_token_data')},
+    dag = dag
+)
 
 
 download_data_dag >> list_packages_task >> split_data_dag >> [convert_test_list_dag, convert_train_list_dag] # type: ignore
